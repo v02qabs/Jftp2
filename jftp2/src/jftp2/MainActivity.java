@@ -29,6 +29,7 @@ public class MainActivity {
 			System.out.println("サーバー名");
 			Scanner scan_server = new Scanner(System.in);
 			String server_string = scan_server.next();
+			
 		}
 	}
 
