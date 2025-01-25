@@ -25,6 +25,11 @@ public class MainActivity {
 				write_dir();
 			}
 		}
+		else if(string_command.equals("setup-user")) {
+			System.out.println("サーバー名");
+			Scanner scan_server = new Scanner(System.in);
+			String server_string = scan_server.next();
+		}
 	}
 
 	private void write_dir() {
@@ -36,16 +41,15 @@ public class MainActivity {
 				System.out.println("OSはリナックスです。");
 				String string_home = System.getProperty("user.home");
 				System.out.println("ホームフォルダー：" + string_home);
-				BufferedWriter bw = new BufferedWriter(new FileWriter(new File(string_home + "/write_dir.txt")));
-				File file = new File("	.");
+				File file = new File(string_home);
 				File[] list = file.listFiles();
 				for(File flist : list) {
-					System.out.println("file " + flist);
-					 bw.write(flist.getAbsolutePath());
-					 bw.close();
+					System.out.println("file " + flist.toString());
+					BufferedWriter bw = new BufferedWriter(new FileWriter(new File(string_home + "/write_dir.txt")));
+					bw.write(flist.toString());
+					bw.close();
 				}
-				bw.write("Jell");
-				bw.close();
+				
 				}
 			else {
 				if(os.equals("Windows")) {
