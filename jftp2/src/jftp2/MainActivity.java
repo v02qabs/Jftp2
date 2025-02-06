@@ -33,8 +33,13 @@ class MainActivity{
 		}
 		else if(string_command.equals("help")) {
 			System.out.print("java jftp2.MainActivity");
-			System.out.print("\n" + "add \n user-create");
+			System.out.print("\n" + "add \n user-create \n" + "help");
 		}
+        else if(string_command.equals("create-dir")){
+            Scanner scan_dir = new Scanner(System.in);
+            String string_dir = scan_dir.next();
+            new CreateDir().create_dir(new File(string_dir));
+        }
 		else if(string_command.equals("push")){
 			//FTPClient client = new FTPClient();
 			try {
@@ -51,9 +56,15 @@ class MainActivity{
 				 client = new FTPClient();
 				client.connect(server);
 				client.login(name,pass);
-				String array_flist_top[] = client.listNames();
+				String array_flist_top [] = client.listNames();
 				for(String list : array_flist_top){
 					System.out.println("list : " + list);
+					client.changeDirectory("/public_html");
+					String array_list3[] = client.listNames();
+					for(String s : array_list3){
+						System.out.println("list3 : " + s);
+					}
+
 				}
 
 			}
