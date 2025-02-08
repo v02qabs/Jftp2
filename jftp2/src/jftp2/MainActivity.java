@@ -99,7 +99,9 @@ class MainActivity{
 				 Scanner sends_dir = new Scanner(System.in);
 				 String scand_dir = sends_dir.next();
 				 client.changeDirectory(scand_dir);
-                client.upload(new File("item.txt"));
+                Scanner scan_up_files = new Scanner(System.in);
+                   String string_up_files = scan_up_files.next);
+                client.upload(new File(string_up_files));
 
 
 			}
