@@ -15,60 +15,56 @@ class MainActivity{
 	public Scanner scan;
 	private String Username;
 	private String pass;
-	
+    private File f1;
+	private void setFiles(){
+        System.out.println("setting files...");
+        f1 = new File(string_home + "/logging.txt");
+
+
+
+	File f2 = new File(".");
+        String[] files = f2.list();
+        for(String s : files){
+
+          try{
+          	 BufferedWriter bw4 = new BufferedWriter(new FileWriter(f1));
+           	 if(!f1.isDirectory()){
+            		bw4.write(s + "\n");
+            		bw4.close();
+            	}
+        }
+        catch(Exception e)
+	{
+		System.out.println("e : " + e.toString());
+	}
+
+        }
+        
+        try{
+        }
+        catch(Exception e)
+        {
+            System.out.println("e"  + e.toString()); 
+        } 
+    }
 	private String server;
 	private String string_home = System.getProperty("user.home");
 	String string_files;
-	private File f = new File(string_home + "/git/jftp2/jftp2/.");
-	public MainActivity() {
+	private File f = new File(string_home + "log.txt");
+	public MainActivity() 
+       {
 		System.out.println("start listing file.");
 		System.out.println("type the command");
-		scan = new Scanner(System.in);
-          File files = new File("/home/user/git/jftp2/jftp2/src/t/./log");
-		String string_command = scan.next();
+        	Scanner scan_command = new Scanner(System.in);
+        	String string_command = scan_command.next();
+		if(string_command.equals("add")) 
+            	{
+			setFiles();
+            	}
 
-		if(string_command.equals("add")) {
-			
-            		File[] flist = f.listFiles();
-            		for(File f : flist){
-            			System.out.println("ok");
-            			 try{
-            			 BufferedWriter bw = new BufferedWriter(new FileWriter(files));
-            			 bw.write(f.getName().toString() + "\n");
-            			 
-            			 bw.close();
-            			 }catch(Exception error){
-            			 System.out.println("error" + error.toString());
-            			 }
-            			 
-            			 
-            			 
-            			 if(f.isDirectory()){
-            			 	continue;
-				}
-				else if(f.isFile()){
-				System.out.println("f " + f.getName());
-					try{
-						BufferedWriter bw1 = new BufferedWriter(new FileWriter(new File("/home/user/write.txt")));
-						bw1.write(f.getName());
-						
-						bw1.close();
-					}	
-					catch(Exception error){}
-					
-				
-				}
-				
-				
-				
-            	
-            					
-            				
-                      	}
-                
-			
+	
 
-		}else if ( string_command.equals("user-create")) {
+		else if ( string_command.equals("user-create")) {
 			System.out.println("user create");
 			create_user();
 		}
@@ -76,11 +72,11 @@ class MainActivity{
 			System.out.print("java jAZqqqqqftp2.MainActivity");
 			System.out.print("\n" + "add \n user-create \n" + "help");
 		}
-        else if(string_command.equals("create-dir")){
-            Scanner scan_dir = new Scanner(System.in);
-            String string_dir = scan_dir.next();
-            new CreateDir().create_dir(new File(string_dir));
-        }
+        	else if(string_command.equals("create-dir")){
+            		Scanner scan_dir = new Scanner(System.in);
+            		String string_dir = scan_dir.next();
+            		new CreateDir().create_dir(new File(string_dir));
+        	}
 		else if(string_command.equals("push")){
 			 client = new FTPClient();
 			try {
@@ -94,22 +90,28 @@ class MainActivity{
 				System.out.print("data\n" + "name : " + name + " \n"+ "pass " + pass + " \n"+ "server " + server );
 				 //client = new FTPClient();
 				 System.out.println("send dir");
+
 				client.connect(server);
 				client.login(name,pass);
 				 Scanner sends_dir = new Scanner(System.in);
 				 String scand_dir = sends_dir.next();
 				 client.changeDirectory(scand_dir);
-                Scanner scan_up_files = new Scanner(System.in);
-                   String string_up_files = scan_up_files.next);
-                client.upload(new File(string_up_files));
-
-
-			}
+                		try{
+                			BufferedReader br7 = new BufferedReader(new FileReader(new File(string_home + "/log.txt")));
+                			String line2;
+                			while((line2 = br7.readLine()) == null){
+                			    System.out.println("line2 : " + line2);
+                    
+                			}
+                		}catch(Exception e){
+                				System.out.println("e : "  + e.toString());
+                		}
+                	}
 			catch(Exception error) {
 				System.out.println("connection error" + error.toString());
 			}
 		}
- 
+ 					
 
 	}
     //private FTPClient client;
@@ -133,8 +135,7 @@ class MainActivity{
 		{
 			
 		}
-		}
-		
+    }
+}
 
-	
-	}
+
