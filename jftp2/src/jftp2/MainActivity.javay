@@ -19,48 +19,23 @@ class MainActivity{
 	private String server;
 	private String string_home = System.getProperty("user.home");
 	String string_files;
-	private File f = new File(string_home + "/git/jftp2/jftp2/.");
 	public MainActivity() {
 		System.out.println("start listing file.");
 		System.out.println("type the command");
 		scan = new Scanner(System.in);
-          File files = new File("/home/user/git/jftp2/jftp2/src/t/./log");
 		String string_command = scan.next();
 
 		if(string_command.equals("add")) {
-			
-            		File[] flist = f.listFiles();
+            		File[] flist = new File(".").listFiles();
             		for(File f : flist){
             			System.out.println("ok");
             			 try{
-            			 BufferedWriter bw = new BufferedWriter(new FileWriter(files));
+            			 BufferedWriter bw = new BufferedWriter(new FileWriter(f));
             			 bw.write(f.getName().toString() + "\n");
-            			 
             			 bw.close();
             			 }catch(Exception error){
             			 System.out.println("error" + error.toString());
             			 }
-            			 
-            			 
-            			 
-            			 if(f.isDirectory()){
-            			 	continue;
-				}
-				else if(f.isFile()){
-				System.out.println("f " + f.getName());
-					try{
-						BufferedWriter bw1 = new BufferedWriter(new FileWriter(new File("/home/user/write.txt")));
-						bw1.write(f.getName());
-						
-						bw1.close();
-					}	
-					catch(Exception error){}
-					
-				
-				}
-				
-				
-				
             	
             					
             				
@@ -92,19 +67,31 @@ class MainActivity{
 				String server = array_ftp[2];
 				System.out.println("write data....");
 				System.out.print("data\n" + "name : " + name + " \n"+ "pass " + pass + " \n"+ "server " + server );
-				 //client = new FTPClient();
-				 System.out.println("send dir");
+				FTPClient client = new FTPClient();
+				System.out.println("SCanner Server Dir");
+				Scanner server_dir = new Scanner(System.in);
+				client.changeDirectory(server_dir);	
+
+				br.close();
+				 client = new FTPClient();
 				client.connect(server);
 				client.login(name,pass);
-				 Scanner sends_dir = new Scanner(System.in);
-				 String scand_dir = sends_dir.next();
-				 client.changeDirectory(scand_dir);
-                client.upload(new File("item.txt"));
+				String array_flist_top [] = client.listNames();
+				for(String list : array_flist_top){
+					System.out.println("list : " + list);
+					Scanner scan_chdir = new Scanner(System.in);
+					String string_chdir = scan_chdir.next();
+					client.changeDirectory(string_chdir);
+					String array_list3[] = client.listNames();
+					for(String s : array_list3){
+						System.out.println("list3 : " + s);
+					}
 
+				}
 
 			}
 			catch(Exception error) {
-				System.out.println("connection error" + error.toString());
+				System.out.println("connection error");
 			}
 		}
  
