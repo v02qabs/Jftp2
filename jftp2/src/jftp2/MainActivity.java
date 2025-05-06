@@ -18,7 +18,7 @@ class MainActivity{
     private File f1;
 	private void setFiles(){
         System.out.println("setting files...");
-        f1 = new File(string_home + "/logging.txt");
+        f1 = new File(string_home + "/log.txt");
 
 
 
@@ -72,13 +72,11 @@ class MainActivity{
 			System.out.print("\n" + "add \n user-create \n" + "help");
 		}
         	else if(string_command.equals("create-dir")){
-            		Scanner scan_dir = new Scanner(System.in);
-            		String string_dir = scan_dir.next();
-            		new CreateDir().create_dir(new File(string_dir));
+            		new CreateDir().create_dir();
         	}
 		else if(string_command.equals("push")){
-			 client = new FTPClient();
 			try {
+				client = new FTPClient();
 				BufferedReader br = new BufferedReader(new FileReader(new File(string_home +  "/userpass.txt")));
 				String data_ftp = br.readLine();
 				String array_ftp[] = data_ftp.split(",");
@@ -86,12 +84,14 @@ class MainActivity{
 				String pass = array_ftp[1];
 				String server = array_ftp[2];
 				System.out.println("write data....");
-				System.out.print("data\n" + "name : " + name + " \n"+ "pass " + pass + " \n"+ "server " + server );
-				 //client = new FTPClient();
-				 System.out.println("send dir");
-
 				client.connect(server);
 				client.login(name,pass);
+				Scanner dir_scan = new Scanner(System.in);
+				String server_dir = dir_scan.next();
+				client.changeDirectory(server_dir);
+				System.out.print("data\n" + "name : " + name + " \n"+ "pass " + pass + " \n"+ "server " + server );
+				 System.out.println("send dir");
+
                 		try{
                 			BufferedReader br7 = new BufferedReader(new FileReader(new File(string_home + "/logging.txt")));
                 			while((line2 = br7.readLine()) != null){
