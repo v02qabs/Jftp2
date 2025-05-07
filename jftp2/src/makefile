@@ -6,4 +6,4 @@ execjava:
 
 makejar:
 	jar cvfm jftp4j.jar manifest.txt jftp2/*
-
+	sudo install jftp4j.jar /usr/share/java/.

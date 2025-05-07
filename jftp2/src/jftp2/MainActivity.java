@@ -68,8 +68,8 @@ class MainActivity{
 			create_user();
 		}
 		else if(string_command.equals("help")) {
-			System.out.print("java jAZqqqqqftp2.MainActivity");
-			System.out.print("\n" + "add \n user-create \n" + "help");
+			System.out.print("jftp.sh");
+			System.out.print("\n" + "add \n user-create \n" +" \n" + "push" + "help");
 		}
         	else if(string_command.equals("create-dir")){
             		new CreateDir().create_dir();
